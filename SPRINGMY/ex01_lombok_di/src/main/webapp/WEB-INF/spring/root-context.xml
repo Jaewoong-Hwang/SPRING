@@ -5,4 +5,12 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		
+		<!--  
+		애플리케이션 전체에서 공유되는 설정 파일
+		전역 설정 or Bean의 정의
+		주로 비지니스 로직과 관련된 서비스, Dao 등을 설정
+		데이터베이스 연결, 트랜잭션 관리, 보안설정(Spring Security등..)과 같은 애플리케이션 전체에서 공유되는 설정을 포함
+		딱 한번 생성되는 Bean들이 정의되며, 모든 웹 요청에 공유
+		-->
 </beans>
