@@ -21,14 +21,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.example.app" />
+	 <context:component-scan base-package="com.example.app.controller" /> 
 	
 	<!--  
 		FrontController 역할을 하는 DispatherServlet 설정 파일
 		정적 자원의 경로(css,js..)지정
 		MVC Component(@Controller, @Service, @Repository...)에노테이션 활성화
 		View Resolver(Page의 연결을 담당하는 Bean)등 설정
-	
 	-->
 	
 	
