@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.app.domain.dto.PersonDto;
 
@@ -140,16 +141,88 @@ public class ParameterTestController {
 	@GetMapping("/page05")
 	public String page05(HttpServletRequest req, HttpServletResponse resp) {
 		log.info("GET/param/page05...");
+		//파라미터 받기
 		String name = req.getParameter("username");
 		int age = Integer.parseInt(req.getParameter("age"));
 		String addr = req.getParameter("addr");
 		log.info(name+" " + age);
 		PersonDto dto = new PersonDto(name,age,addr);
 		
+		//내용담기
+		req.setAttribute("dto", dto);
+		
 		HttpSession session = req.getSession();
 		log.info("session:" + session);
 		
 		return "param/page01";
+	}
+	
+	@GetMapping("/forward1")
+	public String f1(Model model) {
+		log.info("param/forward..1");
+		model.addAttribute("f1","f1value");
+		return "forward:/param/forward2";
+		
+	}
+	
+	@GetMapping("/forward2")
+	public String f2(Model model) {
+		log.info("param/forward..2");
+		model.addAttribute("f2","f1value");
+		return "forward:/param/forward3";
+		
+	}
+	@GetMapping("/forward3")
+	public String f3(Model model) {
+		log.info("param/forward..3");
+		model.addAttribute("f3","f1value");
+		return "param/forward_result";
+		
+	}
+	
+	
+	//REDIRECT
+	@GetMapping("/redirect1")     
+	public String r1(Model model, RedirectAttributes redirectAttributes) {
+		
+		log.info("param/redirect1..");
+		//model.addAttribute("r1","r1value");
+		redirectAttributes.addAttribute("r1","r1Value"); //쿼리스트링으로 전달   http://localhost:8090/project/param/redurect1 GET 요청
+														//					http://localhost:8090/project/param/redurect2?r1=redirect 응답
+		return "redirect:/param/redirect2";
+	}
+	
+	
+	@GetMapping("/redirect2")
+	public String r2(Model model, 
+			@RequestParam("r1") 
+			String r1,
+			RedirectAttributes redirectAttributes) 
+	
+	{
+		
+		log.info("param/redirect2.." + r1);
+		//model.addAttribute("r2","r2value");
+		redirectAttributes.addAttribute("r1",r1);
+		redirectAttributes.addAttribute("r2","r2Value");
+		
+		return "redirect:/param/redirect_result";
+	}
+
+
+	@GetMapping("/redirect_result")
+	public void r_result(
+			Model model,
+			@RequestParam("r1") String r1,
+			@RequestParam("r2") String r2
+			) {
+		model.addAttribute("r1",r1);
+		model.addAttribute("r2",r2);
+		model.addAttribute("r3","r3value");
+		log.info("/param/redirect_result");
+		    //원래 리다이렉틀를 하면 마지막 값만 반환된다. 
+			//r3value만 남게됨 
+			//하지만 RedirectAttributes 을 사용해서 쿼리스트링으로 get 요청 그리고 @RequestParam("r1") String r1 로 응답을 받게 된다면 
 	}
 	
 }
