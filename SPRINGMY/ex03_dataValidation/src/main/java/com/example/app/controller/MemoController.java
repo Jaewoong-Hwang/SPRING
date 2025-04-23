@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public class MemoController {
 		log.info("GET /memo/add...");
 	}
 	
-	@GetMapping("/add")
+	@PostMapping("/add")
 	public void add_post() {
 		log.info("POST /memo/add...");
 	}
