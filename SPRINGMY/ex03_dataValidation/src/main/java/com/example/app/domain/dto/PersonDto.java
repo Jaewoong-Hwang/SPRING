@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Component
+//@Component
 @Builder
 public class PersonDto {
 	private String username;
