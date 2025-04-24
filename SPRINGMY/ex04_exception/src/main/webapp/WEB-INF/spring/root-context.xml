@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 직접 Bean 등록 -->
+ 	<bean id="personDto1" class="com.example.app.domain.dto.PersonDto" >
+		<constructor-arg name="username" value="홍길동" />
+		<constructor-arg name="age" value="11" />
+		<constructor-arg name="addr" value="창원" />	
+	</bean> 
+
+ 	<bean id="personDto2" class="com.example.app.domain.dto.PersonDto" >
+		<constructor-arg name="username" value="홍길동2" />
+		<constructor-arg name="age" value="55" />
+		<constructor-arg name="addr" value="울산" />	
+	</bean> 
+	
+	
+	<context:component-scan base-package="com.example.app.config" />
+			
+	<!-- 
+		애플리케이션 전체에서 공유되는 설정 파일
+		전역 설정 or Bean의 정의
+		주로 비즈니스 로직과 관련된 서비스 ,Dao등을 설정
+		데이터베이스 연결, 트랜잭션 관리 , 보안설정(Spring Security등..)과 같은 애플리케이션 전체에서 공유되는 설정을 포함
+		딱 한번 생성되는 Bean들이 정의되며, 모든 웹 요청에 공유
+	-->
+	
+</beans>
