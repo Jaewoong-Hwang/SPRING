@@ -192,8 +192,16 @@
 			<artifactId>HikariCP</artifactId>
 			<version>6.3.0</version>
 		</dependency>
-		
-		
+
+		<!-- MySQL Connector/J -->
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>9.2.0</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

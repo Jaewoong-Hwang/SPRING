@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.app.domain.dto.MemoDto;
+import com.example.app.domain.service.MemoServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,13 +27,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/memo")
 public class MemoController {
-
-	@InitBinder
-	public void dataBinder(WebDataBinder webDataBinder) {
-		
-		log.info("MemoController's dataBinder" + webDataBinder);
-		webDataBinder.registerCustomEditor(LocalDate.class, "dateTest",new DateTestEditor());
-	}
+	
+	@Autowired
+	private MemoServiceImpl memoServiceImpl;
+	
+	
+//	@InitBinder
+//	public void dataBinder(WebDataBinder webDataBinder) {
+//		
+//		log.info("MemoController's dataBinder" + webDataBinder);
+//		webDataBinder.registerCustomEditor(LocalDate.class, "dateTest",new DateTestEditor());
+//	}
 	
 	@GetMapping("/ex")
 	public void ex1_1() throws FileNotFoundException {
@@ -47,7 +53,7 @@ public class MemoController {
 	}
 	
 	@PostMapping("/add")
-	public void add_post(@Valid MemoDto dto,BindingResult bindingResult, Model model) {
+	public void add_post(@Valid MemoDto dto,BindingResult bindingResult, Model model) throws Exception {
 		log.info("POST /memo/add..." + dto);
 		
 		if(bindingResult.hasErrors()) {
@@ -56,8 +62,13 @@ public class MemoController {
 				log.info("Error Filed:" + error.getField()+" Error Msg :"+error.getDefaultMessage());
 				model.addAttribute(error.getField(),error.getDefaultMessage());
 			}
+			return;
+			
+			
 		
 		}
+		//서비스
+		boolean isAdded = memoServiceImpl.registraionMemo(dto);
 	}
 	// 필요하면 쓰는 용도
 	// static private
@@ -75,12 +86,10 @@ public class MemoController {
 				 date = LocalDate.parse(dateTest,DateTimeFormatter.ofPattern("yyyy#MM#dd")); //아웃포맷팅이기 때문에 dateTest.replaceAll("#", "-"); 필요
 
 			} 
-				
-			
-			
 			setValue(date);  //바인딩 처리
 			
 		}
+		
 			
 		
 

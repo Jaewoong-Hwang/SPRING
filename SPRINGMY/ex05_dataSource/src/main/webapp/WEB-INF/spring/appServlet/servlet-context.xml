@@ -29,6 +29,7 @@
 	
 	<context:component-scan base-package="com.example.app.controller" />
 	
+	
 	<!-- 
 		FrontController 역할을 하는 DispatherServlet설정 파일
 		정적 자원의 경로(css,js..) 지정

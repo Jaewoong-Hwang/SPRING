@@ -15,39 +15,39 @@ import com.example.app.domain.dto.PersonDto;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 class Ditests {
 
-	@Autowired
-	private PersonDto personDto1;
-
-	@Autowired
-	private PersonDto personDto2;
-	
-	@Autowired
-	private PersonDto person03;
-	
-	@Autowired
-	private PersonDto personBean;
-	
-	@Autowired
-	private PersonComponent personComponent;
-	@Test
-	public void test() {
-//		System.out.println(personDto1);
-//		System.out.println(personDto2);
-//		System.out.println(person03);
-//		System.out.println(personBean);
-//		System.out.println(personComponent);
-	}
-	
-	@Autowired
-	private ApplicationContext applicationContext;
-	@Test
-	public void test2() {
-		
-		assertNotNull(applicationContext);
-		System.out.println(applicationContext.getBean("personDto1"));
-		System.out.println(applicationContext.getBean("personDto2"));
+//	@Autowired
+//	private PersonDto personDto1;
+//
+//	@Autowired
+//	private PersonDto personDto2;
+//	
+//	@Autowired
+//	private PersonDto person03;
+//	
+//	@Autowired
+//	private PersonDto personBean;
+//	
+//	@Autowired
+//	private PersonComponent personComponent;
+//	@Test
+//	public void test() {
+////		System.out.println(personDto1);
+////		System.out.println(personDto2);
+////		System.out.println(person03);
+////		System.out.println(personBean);
+////		System.out.println(personComponent);
+//	}
+//	
+//	@Autowired
+//	private ApplicationContext applicationContext;
+//	@Test
+//	public void test2() {
+//		
+//		assertNotNull(applicationContext);
+//		System.out.println(applicationContext.getBean("personDto1"));
+//		System.out.println(applicationContext.getBean("personDto2"));
 				
-	}
+//	}
 
 
 }
