@@ -21,6 +21,14 @@
 	
 	
 	<context:component-scan base-package="com.example.app.config" />
+	
+	<bean id="dataSource1">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value=""/>
+		<property name="username" value="root"/>
+		<property name="password" value="1234"/>
+	
+	</bean>
 			
 	<!-- 
 		애플리케이션 전체에서 공유되는 설정 파일
