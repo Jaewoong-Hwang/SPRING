@@ -29,12 +29,12 @@
 			<input type="datetime-local" name="createAt" />
 		</div>
 		
-		<!-- 
+		
 		<div>
 			<label>dateTest(customFormat) : </label>  <span></span><br>
 			<input type="text" name="dateTest" placeHolder="yyyy#MM#dd" />
 		</div>
-		-->	
+			
 		<div>
 			<input type="submit" value="메모쓰기" />
 		</div>

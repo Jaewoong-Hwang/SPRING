@@ -1,12 +1,17 @@
 package com.example.app.controller;
 
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +24,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/memo")
 public class MemoController {
 
+	@InitBinder
+	public void dataBinder(WebDataBinder webDataBinder) {
+		
+		log.info("MemoController's dataBinder" + webDataBinder);
+		webDataBinder.registerCustomEditor(LocalDate.class, "dateTest",new DateTestEditor());
+	}
+	
+	
+	
 	@GetMapping("/add")
 	public void add_get() {
 		log.info("GET /memo/add...");
@@ -36,5 +50,17 @@ public class MemoController {
 			}
 		
 		}
+	}
+	// 필요하면 쓰는 용도
+	// static private
+	private static class DateTestEditor extends PropertyEditorSupport {
+
+		@Override
+		public void setAsText(String text) throws IllegalArgumentException {
+			log.info("DateTestEditor's setAdText invoke..." + text);
+		}
+			
+		
+
 	}
 }
