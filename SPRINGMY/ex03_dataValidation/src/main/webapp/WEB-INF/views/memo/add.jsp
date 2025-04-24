@@ -38,6 +38,8 @@
 		<div>
 			<input type="submit" value="메모쓰기" />
 		</div>
+		
+		
 	</form>
 </body>
 </html>
