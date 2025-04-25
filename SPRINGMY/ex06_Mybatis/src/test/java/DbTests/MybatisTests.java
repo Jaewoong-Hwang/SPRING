@@ -2,8 +2,9 @@ package DbTests;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.sql.Connection;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,6 +29,7 @@ class MybatisTests {
 	private MemoMapper memoMapper;
 	
 	@Test
+	@Disabled
 	void t1() {
 		assertNotNull(sqlSessionFactory);
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -36,9 +38,19 @@ class MybatisTests {
 	
 	
 	@Test
-	@Disabled
-	void test() {
-		memoMapper.insert(new MemoDto(1010,"a","a@naever.com",LocalDateTime.now(),null));
+	void t2() {
+		//memoMapper.insert(new MemoDto(1010,"a","a@naever.com",LocalDateTime.now(),null));
+		//memoMapper.update(new MemoDto(1010,"abcd","a@naever.com",LocalDateTime.now(),null));
+		//memoMapper.delete(1);
+		//System.out.println(memoMapper.selectAt(1010));
+		
+//		List<MemoDto> list = memoMapper.selectAll();
+//		list.forEach(System.out::println);
+		
+//		List<Map<String,Object>> list = memoMapper.selectAllResultMap();
+//		list.forEach(System.out::println);
+		
+		memoMapper.insertXml(new MemoDto(2020,"b","b@naever.com",LocalDateTime.now(),null));
 	}
 
 }

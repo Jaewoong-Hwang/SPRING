@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.domain.mapper.MemoMapper">
+
+    <insert id="insertXml" >
+       
+        insert into tbl_memo (id, text) values (#{id}, #{text})  <!-- ; 있으면 동작안함!! -->
+    </insert>
+
+    <update id="updateXml">
+        update tbl_memo set text=#{text} where id=#{id}
+    </update>
+    
+    <delete id="deleteXml">
+        delete from tbl_memo where id=#{id}
+    </delete>
+    
+    <select id="selectAtXml" resultType="com.example.app.domain.dto.MemoDto" parameterType="int">
+        select * from tbl_memo where id=#{id}
+    </select>
+    
+    <select id="selectAllXml" resultType="com.example.app.domain.dto.MemoDto">
+        select * from tbl_memo
+    </select>
+    
+    <select id="selectAllResultMapXml" resultType="java.util.Map">
+        select * from tbl_memo
+    </select>
+
+</mapper>
+
