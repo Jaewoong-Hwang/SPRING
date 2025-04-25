@@ -41,6 +41,7 @@
 	<context:component-scan
 		base-package="com.example.app.domain.service" />
 	<mybatis-spring:scan base-package="com.example.app.domain.mapper" />
+	
 
 	<!-- 애플리케이션 전체에서 공유되는 설정 파일 전역 설정 or Bean의 정의 주로 비즈니스 로직과 관련된 서비스 ,Dao등을 
 		설정 데이터베이스 연결, 트랜잭션 관리 , 보안설정(Spring Security등..)과 같은 애플리케이션 전체에서 공유되는 설정을 

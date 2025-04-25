@@ -32,7 +32,7 @@ public class MemoDto {
 	@NotNull(message = "날자정보를 선택해주세요")
 	private  LocalDateTime createAt; // 데이터타입을 변환해야함 '인데이터타입'
 	
-	private LocalDate dateTest;
+	//private LocalDate dateTest;
 	
 	
 }

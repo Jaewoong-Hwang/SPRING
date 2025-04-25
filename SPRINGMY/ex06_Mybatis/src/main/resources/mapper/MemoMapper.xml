@@ -4,30 +4,74 @@
 
 <mapper namespace="com.example.app.domain.mapper.MemoMapper">
 
-    <insert id="insertXml" >
-       
-        insert into tbl_memo (id, text) values (#{id}, #{text})  <!-- ; 있으면 동작안함!! -->
-    </insert>
+	<insert id="insertXml" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" order="AFTER" resultType="int">
+			select
+			max(id) + 1 as id from tbl_memo
+		</selectKey>
+		insert into tbl_memo (id, text) values (#{id}, #{text})
+	</insert>
 
-    <update id="updateXml">
-        update tbl_memo set text=#{text} where id=#{id}
-    </update>
-    
-    <delete id="deleteXml">
-        delete from tbl_memo where id=#{id}
-    </delete>
-    
-    <select id="selectAtXml" resultType="com.example.app.domain.dto.MemoDto" parameterType="int">
-        select * from tbl_memo where id=#{id}
-    </select>
-    
-    <select id="selectAllXml" resultType="com.example.app.domain.dto.MemoDto">
-        select * from tbl_memo
-    </select>
-    
-    <select id="selectAllResultMapXml" resultType="java.util.Map">
-        select * from tbl_memo
-    </select>
+	<!-- <insert id="insertXml"> insert into tbl_memo (id, text) values (#{id}, 
+		#{text}) ; 있으면 동작안함!! </insert> -->
+
+	<update id="updateXml">
+		update tbl_memo set text=#{text} where id=#{id}
+	</update>
+
+	<delete id="deleteXml">
+		delete from tbl_memo where id=#{id}
+	</delete>
+
+	<select id="selectAtXml"
+		resultType="com.example.app.domain.dto.MemoDto" parameterType="int">
+		select *
+		from tbl_memo where id=#{id}
+	</select>
+
+	<select id="selectAllXml"
+		resultType="com.example.app.domain.dto.MemoDto">
+		select * from tbl_memo
+	</select>
+
+	<select id="selectAllResultMapXml" resultType="java.util.Map">
+		select * from
+		tbl_memo
+	</select>
+
+
+
+	<select id="Select_if_xml" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select * from tbl_memo
+		<if test="type!=null and type.equals('text')">
+			where text like concat('%',#{keyword},'%')
+		</if>
+	</select>
+
+	<select id="Select_when_xml" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select * from tbl_memo
+		<if test="type!=null">
+			where
+			<choose>  <!--switch  -->
+				<when test="type.equals('id')">
+					id like concat('%',#{keyword},'%')
+				</when>
+				<when test="type.equals('text')">
+					text like concat('%',#{keyword},'%')
+				</when>
+				<when test="type.equals('writer')">
+					writer like concat('%',#{keyword},'%')
+				</when>
+				<otherwise>
+					createAt &lt;= #{keyword}
+				</otherwise>
+
+			</choose>
+		</if>
+
+	</select>
 
 </mapper>
 
