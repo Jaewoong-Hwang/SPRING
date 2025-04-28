@@ -26,6 +26,7 @@ class TxTests {
 	@Test
 	void t1() {
 //		memoService.addMemoTx(new MemoDto(9090,"a","a",LocalDateTime.now()));
+		
 		memoService.getAllMemo();
 	}
 	

@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,7 +47,8 @@ public class MemoController {
 	
 	
 	@GetMapping("/add")
-	public void add_get() {
+	public void add_get(MemoDto dto) throws SQLException {
+		memoServiceImpl.registraionMemo(dto);
 		log.info("GET /memo/add...");
 	}
 	
@@ -95,9 +95,13 @@ public class MemoController {
 			setValue(date);  //바인딩 처리
 			
 		}
-		
-			
-		
+
 
 	}
+	//
+	@GetMapping("/rest")
+	public void rest() {
+		log.info("GET /rest...");
+	}
+	
 }

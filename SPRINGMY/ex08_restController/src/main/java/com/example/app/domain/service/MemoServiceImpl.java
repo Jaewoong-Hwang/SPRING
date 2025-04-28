@@ -47,6 +47,7 @@ public class MemoServiceImpl {
 		memoMapper.insert(dto); // 01 정상INSERT
 		dto.setId(id); // PK오류 발생예정인 dto
 		memoMapper.insert(dto); // 02 PK오류 발생!!
+		
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -55,5 +56,16 @@ public class MemoServiceImpl {
 		return memoMapper.selectAt(id);
 		
 	}
+	@Transactional(rollbackFor = Exception.class)
+	public void modifyMemo(MemoDto dto) {
+		memoMapper.update(dto);   
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void removeMemo(int id) {
+		memoMapper.delete(id);
+	}
+
+
 
 }
