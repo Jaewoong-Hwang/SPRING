@@ -48,5 +48,12 @@ public class MemoServiceImpl {
 		dto.setId(id); // PK오류 발생예정인 dto
 		memoMapper.insert(dto); // 02 PK오류 발생!!
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public MemoDto getMemo(int id) {
+		
+		return memoMapper.selectAt(id);
+		
+	}
 
 }
