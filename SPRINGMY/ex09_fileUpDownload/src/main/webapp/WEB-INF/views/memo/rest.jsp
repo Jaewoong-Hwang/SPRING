@@ -255,7 +255,7 @@
 			const axiosAsyncPutForm = document.axiosAsyncPutForm;
 			
 			//요청
-			axios.put(projectPath+"/rest/memo/put2"+axiosAsyncPutForm.id.value+"/"+axiosAsyncPutForm.text.value)
+			axios.put(projectPath+"/rest/memo/put/"+axiosAsyncPutForm.id.value+"/"+axiosAsyncPutForm.text.value)
 			.then(resp=>{console.log(resp);})
 			.catch(err=>{console.log(err);});	
 		})
@@ -273,7 +273,7 @@
 			const axiosAsyncDeleteForm = document.axiosAsyncDeleteForm;
 			
 			//요청
-			axios.delete(projectPath+"/memo/remove/"+axiosAsyncDeleteForm.id.value)
+			axios.delete(projectPath+"/rest/memo/remove/"+axiosAsyncDeleteForm.id.value)
 			.then(resp=>{console.log(resp);})
 			.catch(err=>{console.log(err);});	
 		})		

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>/file/upload</h1>
-	<form action="${pageContext.request.contextPath }/file/upload" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath }/file/upload_dto" method="post" enctype="multipart/form-data">
 	<input type = "file" name ="files" multiple/>
 	<button>전송</button>
 	</form>

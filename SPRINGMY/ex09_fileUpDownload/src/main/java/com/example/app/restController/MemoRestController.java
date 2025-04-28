@@ -73,7 +73,8 @@ public class MemoRestController {
 		log.info("PUT /memo/put.." + dto);
 		memoService.modifyMemo(dto);
 	}
-
+	
+	//postman 사용해서 해야 함
 	@PutMapping("/put2") // http://localhost:8091/app/memo/put2
 	public void put2(@RequestBody MemoDto dto) {
 		log.info("PUT /memo/put2.." + dto);
