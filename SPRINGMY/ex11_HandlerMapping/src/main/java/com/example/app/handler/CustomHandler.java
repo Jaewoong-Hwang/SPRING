@@ -15,6 +15,10 @@ public class CustomHandler implements Controller{
 		System.out.println("CumtonHandler's handlerRequest");
 		return null;
 	}
+	
+	public void hello() {
+		System.out.println("CumtonHandler's hello!!...");
+	}
 
 	
 }

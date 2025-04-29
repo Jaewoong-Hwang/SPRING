@@ -1,5 +1,6 @@
 package com.example.app.config;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.example.app.handler.CustomHandler;
@@ -85,6 +89,25 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	}
 	
 	
-	//3) RequestMappingHandlerMapping
-	
+	//3) RequestMappingHandlerMapping : Controller와 매핑되는 URL을 찾아내고 해당 URL에 대한 요청 처리
+	//적절한 컨트롤러 및 메서드를 찾아 매핑(@RequestMapping,@GetMapping,@PostMapping...)
+	@Bean
+	RequestMappingHandlerMapping requestMappingHandlerMapping() throws NoSuchMethodException, SecurityException {
+		RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
+		//URL 요청 매핑정보 구성 (get, post..)
+		RequestMappingInfo mappingInfo = RequestMappingInfo
+				.paths("/custom_03")
+				.methods(RequestMethod.GET)
+				.build();
+		
+		//URL 매핑될 매서드 찾기
+		Method method = CustomHandler.class.getMethod("hello",null); //reflect 사용
+		
+		
+		//요청 매핑정보, 핸들러, 매서드 등록
+		handlerMapping.registerMapping(mappingInfo, new CustomHandler(), method);
+		
+		return handlerMapping;
+		
+	}
 }
