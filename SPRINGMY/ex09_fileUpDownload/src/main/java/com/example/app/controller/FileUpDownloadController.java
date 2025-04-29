@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -100,5 +101,27 @@ public class FileUpDownloadController {
 		}
 		return "file/upload";
 
+	}
+	@GetMapping("/list")
+	public void list(Model model) {
+		log.info("GET/file/list...");
+		String UploadPath = ROOT_PATH 
+				+ File.separator // '/'
+				+ UPLOAD_PATH 
+				+ File.separator;
+		File uploadDir = new File(UploadPath);
+		File [] dirs =  uploadDir.listFiles();
+		for(File dir : dirs) {
+			
+			System.out.println("dir : " + dir);//	file list 확인
+			
+			File subDir = new File(dir.getPath()); 
+			for(File file : subDir.listFiles()) {
+				System.out.println("FILE" + file); // 폴더 안의 file list 출력
+			}
+				
+		}
+		model.addAttribute("uploadPath", UploadPath);
+		
 	}
 }
