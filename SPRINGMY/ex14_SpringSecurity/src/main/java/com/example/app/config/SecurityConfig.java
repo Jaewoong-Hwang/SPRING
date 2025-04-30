@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.app.config.auth.PrincipalDetailsService;
+import com.example.app.config.auth.exceptionHandler.CustomAccessDeniedHandler;
+import com.example.app.config.auth.exceptionHandler.CustomAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity  // security config 
@@ -32,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		//권한체크
 		http.authorizeRequests()
-			.antMatchers("/","/join").permitAll()  //최상위와 회원가입은 그냥 통과
+			.antMatchers("/","/join","/login").permitAll()  //최상위와 회원가입은 그냥 통과
 			.antMatchers("/user").hasRole("USER")
 			.antMatchers("/manager").hasRole("MANAGER")
 			.antMatchers("/admin").hasRole("ADMIN")
@@ -51,7 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.permitAll();
 		
 		//예외처리
-		
+		http.exceptionHandling()
+			.authenticationEntryPoint(new CustomAuthenticationEntryPoint())  //미인증 계정 예외처리
+			.accessDeniedHandler(new CustomAccessDeniedHandler()); //권한 부족시 예외처리
 	
 	}
 

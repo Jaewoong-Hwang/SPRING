@@ -18,6 +18,7 @@
 	
 	</form>
 	${message}
+	${param.error}
 	
 	
 	
