@@ -19,7 +19,7 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 			AuthenticationException exception) throws IOException, ServletException {
 			log.error("CustomLoginFailureHandler's onAuthenticationFailure invoke...");
 			
-			response.sendRedirect(request.getContextPath()+"/login");
+			response.sendRedirect(request.getContextPath()+"/login?error=" + exception.getMessage()); //로그인 페이지로 이동
 	}
 
 }
