@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 //@RequestMapping("/join")
 public class UserController {
 	
+	@Autowired
+	private UserServiceImpl userService;
+	
 	@InitBinder
 	public void dataBinder(WebDataBinder webDataBinder) {
 		
@@ -38,7 +42,32 @@ public class UserController {
 		webDataBinder.registerCustomEditor(String.class, "phone",new PhoneNumberEditor());
 		webDataBinder.registerCustomEditor(LocalDate.class, "birthday",new BirthdayEditor());
 	}
-
+	
+	@GetMapping("/login")
+	public void login() {
+		log.info("GET / login...");
+	}
+	
+	
+	
+	@GetMapping("/user")
+	public void user() {
+		log.info("GET / user...");
+	}
+	
+	@GetMapping("/manager")
+	public void manager() {
+		log.info("GET / manager...");
+	}
+	
+	@GetMapping("/admin")
+	public void admin() {
+		log.info("GET / admin...");
+	}
+	
+	
+	
+	
 	@GetMapping("/join")
 	public void join() {
 
@@ -55,6 +84,7 @@ public class UserController {
 				log.info("Error Filed:" + error.getField() + " Error Msg :" + error.getDefaultMessage());
 				model.addAttribute(error.getField(), error.getDefaultMessage());
 			}
+			userService.
 
 		}
 
