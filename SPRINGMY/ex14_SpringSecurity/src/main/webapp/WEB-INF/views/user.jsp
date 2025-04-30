@@ -11,6 +11,9 @@
 	
 	<h1>USER</h1>
 	
+	<div>
+		auth : ${auth}
+	</div>
 	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 </body>
 </html>

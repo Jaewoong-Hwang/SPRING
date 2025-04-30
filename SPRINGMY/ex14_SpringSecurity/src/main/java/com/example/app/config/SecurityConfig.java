@@ -9,7 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import com.example.app.config.auth.PrincipalDetailsService;
 
 @Configuration
 @EnableWebSecurity  // security config 
@@ -17,6 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private PrincipalDetailsService principalDetailsService;  // 만들어 놓은 PrincipalDetailsService 사용
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.authenticated();  // 어떤 위치로 가든 인증, 이대로 실행하면 403 -> 인증하지 않았기 때문에
 		
 		
-		
 		//로그인
 		http.formLogin()
 			.loginPage("/login")
@@ -55,21 +58,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override  //계정 임시로 만들기
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("user")
-			.password(passwordEncoder.encode("1234")) 
-			.roles("USER"); 
+//		auth.inMemoryAuthentication()
+//			.withUser("user")
+//			.password(passwordEncoder.encode("1234")) 
+//			.roles("USER"); 
+//		
+//		auth.inMemoryAuthentication()
+//		.withUser("manager")
+//		.password("{noop}1234") 
+//		.roles("MANAGER"); 
+//		
+//		auth.inMemoryAuthentication()
+//		.withUser("admin")
+//		.password("{noop}1234") 
+//		.roles("ADMIN"); 
 		
-		auth.inMemoryAuthentication()
-		.withUser("manager")
-		.password("{noop}1234") 
-		.roles("MANAGER"); 
-		
-		auth.inMemoryAuthentication()
-		.withUser("admin")
-		.password("{noop}1234") 
-		.roles("ADMIN"); 
+		auth.userDetailsService(principalDetailsService).passwordEncoder(passwordEncoder); // 연결
 	}
+	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder () {
