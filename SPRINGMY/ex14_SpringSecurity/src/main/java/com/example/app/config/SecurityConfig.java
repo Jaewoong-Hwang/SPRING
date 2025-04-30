@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.app.config.auth.PrincipalDetailsService;
 import com.example.app.config.auth.exceptionHandler.CustomAccessDeniedHandler;
 import com.example.app.config.auth.exceptionHandler.CustomAuthenticationEntryPoint;
+import com.example.app.config.auth.loginHandler.CustomSuccessHandler;
 
 @Configuration
 @EnableWebSecurity  // security config 
@@ -46,11 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//로그인
 		http.formLogin()
 			.loginPage("/login")
-			.permitAll();
-		
+			.permitAll()
+			.successHandler(new CustomSuccessHandler()) // 로그인 성공시  
+			.failureHandler(new CustomLoginFailureHandler); // 로그인 실패시
+			
 		//로그아웃
 		http.logout()
 			.permitAll();
+			
 		
 		//예외처리
 		http.exceptionHandling()
